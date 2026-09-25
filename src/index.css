@@ -1,0 +1,54 @@
+@import "tailwindcss";
+@import "./styles/tokens.css";
+
+@theme {
+  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-serif: 'Instrument Serif', Georgia, serif;
+  
+  --color-canvas: #F3F1EB;
+  --color-canvas-subtle: #EBE8E0;
+  --color-canvas-dark: #15181D;
+  --color-foreground-dark: #F3F1EB;
+  --color-text-main: #15181D;
+  --color-text-muted: #697078;
+  --color-accent-primary: #3157D5;
+  --color-accent-tech: #7696E8;
+  --color-accent-warm: #C98259;
+  --color-accent-green: #718878;
+  --color-border-hairline: rgba(21, 24, 29, 0.09);
+  --color-border-dark: rgba(243, 241, 235, 0.12);
+}
+
+:root {
+  color-scheme: light;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Hairline utility */
+.border-hairline {
+  border-color: rgba(21, 24, 29, 0.09);
+}
+
+.border-hairline-dark {
+  border-color: rgba(243, 241, 235, 0.12);
+}
+
+/* Editorial line connector */
+.journey-connector-line {
+  background-image: repeating-linear-gradient(to bottom, #3157D5 0, #3157D5 4px, transparent 4px, transparent 8px);
+}
