@@ -17,12 +17,32 @@ export interface SEOData {
   canonical?: string;
 }
 
+export type ClaimLevel = 'project' | 'experience' | 'training' | 'interest';
+
+export type DiscoveryLens = 
+  | 'technical-projects'
+  | 'events-operations'
+  | 'data-systems'
+  | 'professional-partnership'
+  | 'international-communication';
+
+export interface DiscoveryMetadata {
+  topics?: string[];
+  skills?: string[];
+  tools?: string[];
+  roles?: string[];
+  contexts?: string[];
+  aliases?: string[];
+  lenses?: DiscoveryLens[];
+}
+
 export interface Project {
   slug: string;
   title: string;
   subtitle?: string;
   categories: string[];
   status?: string;
+  claimLevel?: ClaimLevel;
   featured: boolean;
   summary: string;
   problem?: string;
@@ -45,6 +65,7 @@ export interface Project {
   relatedJourney?: string[];
   relatedExperience?: string[];
   homepage?: boolean;
+  discovery?: DiscoveryMetadata;
   seo?: SEOData;
 }
 
@@ -53,6 +74,7 @@ export interface JourneyExperience {
   title: string;
   organization?: string;
   role: string;
+  claimLevel?: ClaimLevel;
   categories: ('professional' | 'international' | 'organization' | 'committee' | 'volunteer' | 'research' | 'systems')[];
   location?: string;
   period?: string;
@@ -76,12 +98,14 @@ export interface JourneyExperience {
     label: string;
     context: string;
   };
+  discovery?: DiscoveryMetadata;
 }
 
 export interface ProfessionalExperience {
   slug: string;
   organization: string;
   role: string;
+  claimLevel?: ClaimLevel;
   location?: string;
   period: string;
   summary: string;
@@ -106,6 +130,7 @@ export interface ProfessionalExperience {
   changedThinking?: string;
   relatedWork?: string[];
   featured: boolean;
+  discovery?: DiscoveryMetadata;
 }
 
 export interface ProfileData {
@@ -119,5 +144,6 @@ export interface ProfileData {
   email: string;
   linkedin: string;
   github?: string;
+  instagram?: string;
   statusExploring: string[];
 }

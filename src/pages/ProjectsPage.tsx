@@ -38,23 +38,23 @@ export const ProjectsPage: React.FC = () => {
         <h1 className="text-4xl sm:text-5xl font-serif text-[#15181D] tracking-tight">
           Projects
         </h1>
-        <p className="mt-4 text-lg text-[#697078] leading-relaxed text-balance">
-          A collection of things I have researched, modeled, designed, built, or experimented with. Each project outlines the context, approach, and practical learnings.
+        <p className="mt-4 text-base sm:text-lg text-[#697078] leading-relaxed text-balance">
+          A collection of things I have researched, modeled, designed, built, or experimented with. Each project outlines the context, computational approach, and practical learnings.
         </p>
       </div>
 
-      {/* Primary Category Filters */}
+      {/* Primary Category Filters (Cardless horizontal segmented row) */}
       <div className="mb-12 overflow-x-auto pb-2 scrollbar-none">
-        <div className="flex items-center gap-1.5 p-1 bg-[#EBE8DF]/60 rounded-lg border border-hairline w-max">
+        <div className="flex items-center gap-2 border-b border-hairline pb-2 w-max">
           {projectCategories.map((cat) => {
             const isSelected = currentCategory.toLowerCase() === cat.id.toLowerCase();
             return (
               <button
                 key={cat.id}
                 onClick={() => handleSelectCategory(cat.id)}
-                className={`px-3.5 py-1.5 text-xs font-medium rounded-md transition-all whitespace-nowrap ${
+                className={`px-3 py-1.5 text-xs font-mono transition-colors whitespace-nowrap ${
                   isSelected
-                    ? 'bg-white text-[#15181D] shadow-xs font-semibold'
+                    ? 'border-b-2 border-[#15181D] text-[#15181D] font-bold'
                     : 'text-[#697078] hover:text-[#15181D]'
                 }`}
               >
@@ -65,8 +65,8 @@ export const ProjectsPage: React.FC = () => {
         </div>
       </div>
 
-      {/* Projects Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+      {/* Cardless Architectural Projects Catalogue */}
+      <div className="divide-y divide-hairline border-y border-hairline">
         {filteredProjects.map((project, idx) => {
           const placeholderType =
             project.slug === 'air-purifier'
@@ -82,57 +82,82 @@ export const ProjectsPage: React.FC = () => {
           return (
             <article
               key={project.slug}
-              className="rounded-xl border border-hairline bg-[#F3F1EB] p-6 sm:p-8 flex flex-col justify-between hover:border-[#3157D5]/40 transition-colors shadow-xs"
+              className="py-10 sm:py-12 group"
             >
-              <div>
-                <div className="mb-6">
-                  <MediaPlaceholder
-                    type={placeholderType}
-                    label={project.title}
-                    sublabel={project.subtitle}
-                    aspectRatio="16:9"
-                  />
-                </div>
-
-                <div className="flex items-center justify-between text-xs text-[#697078] mb-2 font-mono">
-                  <span className="text-[#3157D5] font-semibold">
-                    0{idx + 1}. {project.categories.join(' · ')}
-                  </span>
-                  {project.status && <span>{project.status}</span>}
-                </div>
-
-                <h3 className="text-xl font-serif text-[#15181D] tracking-tight mb-2">
-                  <Link to={`/projects/${project.slug}`} className="hover:text-[#3157D5] transition-colors">
-                    {project.title}
-                  </Link>
-                </h3>
-
-                <p className="text-xs sm:text-sm text-[#15181D]/80 leading-relaxed mb-4">
-                  {project.summary}
-                </p>
-
-                {/* Verified tool tags */}
-                {project.tools && project.tools.length > 0 && (
-                  <div className="pt-3 border-t border-hairline text-[11px] font-mono text-[#697078] flex flex-wrap items-center gap-1.5">
-                    <span className="uppercase text-[#15181D]/80">Tools:</span>
-                    {project.tools.map((t, i) => (
-                      <span key={t}>
-                        {t}
-                        {i < project.tools!.length - 1 ? ' ·' : ''}
-                      </span>
-                    ))}
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+                
+                {/* Visual Technical Specimen Frame (5 cols) */}
+                <div className="lg:col-span-5">
+                  <div className="border border-hairline bg-[#EBE8DF]/40 overflow-hidden">
+                    <MediaPlaceholder
+                      type={placeholderType}
+                      label={project.title}
+                      sublabel={project.subtitle}
+                      aspectRatio="16:9"
+                    />
                   </div>
-                )}
-              </div>
+                </div>
 
-              <div className="mt-6 pt-4 border-t border-hairline flex items-center justify-between">
-                <Link
-                  to={`/projects/${project.slug}`}
-                  className="text-xs font-semibold text-[#3157D5] hover:text-[#15181D] transition-colors inline-flex items-center gap-1.5"
-                >
-                  <span>View Project</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
-                </Link>
+                {/* Information & Details (7 cols) */}
+                <div className="lg:col-span-7 space-y-4">
+                  
+                  {/* Metadata Row */}
+                  <div className="flex items-center justify-between text-xs font-mono text-[#697078]">
+                    <span className="text-[#3157D5] font-semibold">
+                      0{idx + 1}. {project.categories.join(' · ')}
+                    </span>
+                    {project.status && (
+                      <span className="text-[#15181D] font-medium">{project.status}</span>
+                    )}
+                  </div>
+
+                  {/* Title & Subtitle */}
+                  <div className="space-y-1">
+                    <h2 className="text-2xl sm:text-3xl font-serif text-[#15181D] tracking-tight group-hover:text-[#3157D5] transition-colors">
+                      <Link to={`/projects/${project.slug}`}>
+                        {project.title}
+                      </Link>
+                    </h2>
+                    {project.subtitle && (
+                      <p className="text-sm font-sans text-[#697078]">
+                        {project.subtitle}
+                      </p>
+                    )}
+                  </div>
+
+                  {/* Summary */}
+                  <p className="text-sm text-[#15181D]/80 leading-relaxed font-sans">
+                    {project.summary}
+                  </p>
+
+                  {/* Tools Metadata: Clean text with typographic separators (Zero pills) */}
+                  {project.tools && project.tools.length > 0 && (
+                    <div className="pt-2 text-xs font-mono text-[#697078] flex flex-wrap items-center gap-x-2 gap-y-1">
+                      <span className="uppercase text-[#15181D] font-medium">Tools:</span>
+                      {project.tools.map((t, i) => (
+                        <React.Fragment key={t}>
+                          <span>{t}</span>
+                          {i < project.tools!.length - 1 && (
+                            <span aria-hidden="true" className="text-[#697078]/40">·</span>
+                          )}
+                        </React.Fragment>
+                      ))}
+                    </div>
+                  )}
+
+                  {/* Deep Link Action */}
+                  <div className="pt-2">
+                    <Link
+                      to={`/projects/${project.slug}`}
+                      className="inline-flex items-center gap-1.5 text-xs font-mono text-[#15181D] group-hover:text-[#3157D5] transition-colors"
+                    >
+                      <span>Inspect technical details & approach</span>
+                      <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                    </Link>
+                  </div>
+
+                </div>
+
               </div>
             </article>
           );

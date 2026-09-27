@@ -1,15 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowUpRight, Mail, Linkedin, Github, FileText } from 'lucide-react';
+import { ArrowUpRight, Mail, Linkedin, Github, Instagram, FileText } from 'lucide-react';
 import { profile } from '../../data/profile';
 
 export const Footer: React.FC = () => {
   return (
     <footer className="border-t border-hairline bg-[#EBE8DF]/40 text-[#15181D]">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-12 md:py-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12 md:py-16">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-10">
+          
           {/* Identity column */}
-          <div className="md:col-span-5 space-y-4">
+          <div className="md:col-span-5 space-y-3">
             <Link
               to="/"
               className="text-xl font-serif text-[#15181D] hover:text-[#3157D5] transition-colors inline-block"
@@ -17,11 +18,10 @@ export const Footer: React.FC = () => {
               Razin Abdillah
             </Link>
             <p className="text-sm text-[#697078] max-w-sm leading-relaxed">
-              Electrical Engineering undergraduate at Institut Teknologi Sepuluh Nopember (ITS).
-              Exploring engineering, clean technology, and operational structure.
+              Electrical Engineering Undergraduate at Institut Teknologi Sepuluh Nopember (ITS). Focused on power systems, hardware design, and operational data.
             </p>
-            <div className="pt-2 text-xs font-mono text-[#697078]">
-              Surabaya, East Java, Indonesia
+            <div className="pt-1 text-xs font-mono text-[#697078]">
+              Surabaya, Indonesia
             </div>
           </div>
 
@@ -29,23 +29,23 @@ export const Footer: React.FC = () => {
           <div className="md:col-span-4 grid grid-cols-2 gap-6 text-sm">
             <div className="space-y-3">
               <span className="text-xs font-mono uppercase tracking-wider text-[#697078] block">
-                Explore
+                Index
               </span>
               <ul className="space-y-2">
                 <li>
                   <Link
-                    to="/journey"
+                    to="/roles"
                     className="text-[#15181D] hover:text-[#3157D5] transition-colors"
                   >
-                    Journey
+                    Roles
                   </Link>
                 </li>
                 <li>
                   <Link
-                    to="/experience"
+                    to="/experiences"
                     className="text-[#15181D] hover:text-[#3157D5] transition-colors"
                   >
-                    Work Experience
+                    Experiences
                   </Link>
                 </li>
                 <li>
@@ -61,7 +61,7 @@ export const Footer: React.FC = () => {
                     to="/about"
                     className="text-[#15181D] hover:text-[#3157D5] transition-colors"
                   >
-                    About & Thinking
+                    About
                   </Link>
                 </li>
               </ul>
@@ -69,7 +69,7 @@ export const Footer: React.FC = () => {
 
             <div className="space-y-3">
               <span className="text-xs font-mono uppercase tracking-wider text-[#697078] block">
-                Documents
+                Archive
               </span>
               <ul className="space-y-2">
                 <li>
@@ -77,7 +77,7 @@ export const Footer: React.FC = () => {
                     to="/cv"
                     className="text-[#15181D] hover:text-[#3157D5] transition-colors inline-flex items-center gap-1"
                   >
-                    <span>Curriculum Vitae</span>
+                    <span>Resume</span>
                     <FileText className="w-3 h-3 text-[#697078]" />
                   </Link>
                 </li>
@@ -126,6 +126,18 @@ export const Footer: React.FC = () => {
                 >
                   <Github className="w-4 h-4 text-[#697078]" />
                   <span>GitHub</span>
+                  <ArrowUpRight className="w-3 h-3 text-[#697078]" />
+                </a>
+              )}
+              {profile.instagram && (
+                <a
+                  href={profile.instagram}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-2 text-sm text-[#15181D] hover:text-[#3157D5] transition-colors"
+                >
+                  <Instagram className="w-4 h-4 text-[#697078]" />
+                  <span>Instagram</span>
                   <ArrowUpRight className="w-3 h-3 text-[#697078]" />
                 </a>
               )}

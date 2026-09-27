@@ -8,9 +8,9 @@ import { MediaPlaceholder } from '../components/ui/MediaPlaceholder';
 export const JourneyDetailPage: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
 
-  // If user navigated to /journey/aither, redirect to /experience/aither
+  // If user navigated to aither, redirect to /roles/aither
   if (slug === 'aither') {
-    return <Navigate to="/experience/aither" replace />;
+    return <Navigate to="/roles/aither" replace />;
   }
 
   const exp = journeyExperiences.find((j) => j.slug === slug);
@@ -18,16 +18,16 @@ export const JourneyDetailPage: React.FC = () => {
   if (!exp) {
     return (
       <div className="py-24 max-w-4xl mx-auto px-4 text-center">
-        <h1 className="text-3xl font-serif text-[#15181D]">Experience Not Found</h1>
+        <h1 className="text-3xl font-serif text-[#15181D]">Record Not Found</h1>
         <p className="mt-3 text-sm text-[#697078]">
-          The journey record you requested does not exist or has been moved.
+          The experience record you requested does not exist or has been moved.
         </p>
         <Link
-          to="/journey"
-          className="mt-6 inline-flex items-center gap-2 px-4 py-2 text-xs font-medium text-white bg-[#15181D] rounded-md"
+          to="/experiences"
+          className="mt-6 inline-flex items-center gap-2 px-4 py-2 text-xs font-mono uppercase tracking-wider text-white bg-[#15181D]"
         >
           <ArrowLeft className="w-3.5 h-3.5" />
-          <span>Return to Journey</span>
+          <span>Return to Experiences</span>
         </Link>
       </div>
     );
@@ -44,11 +44,11 @@ export const JourneyDetailPage: React.FC = () => {
       {/* Back Link */}
       <div className="mb-8">
         <Link
-          to="/journey"
+          to="/experiences"
           className="inline-flex items-center gap-1.5 text-xs font-mono text-[#697078] hover:text-[#3157D5] transition-colors"
         >
           <ArrowLeft className="w-3.5 h-3.5" />
-          <span>Back to Journey</span>
+          <span>Back to Experiences</span>
         </Link>
       </div>
 
@@ -130,9 +130,9 @@ export const JourneyDetailPage: React.FC = () => {
               03. Execution
             </h2>
             <h3 className="text-2xl font-serif tracking-tight">What I actually did</h3>
-            <div className="space-y-3">
+            <div className="divide-y divide-hairline border-y border-hairline">
               {exp.whatActuallyDid.map((item, idx) => (
-                <div key={idx} className="flex items-start gap-3 p-4 rounded-lg bg-[#EBE8DF]/40 border border-hairline">
+                <div key={idx} className="flex items-start gap-3 py-3">
                   <span className="font-mono text-xs text-[#3157D5] font-semibold mt-0.5">
                     0{idx + 1}.
                   </span>
@@ -168,11 +168,11 @@ export const JourneyDetailPage: React.FC = () => {
             </p>
 
             {exp.highlights && exp.highlights.length > 0 && (
-              <div className="mt-4 pt-3 grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div className="mt-4 divide-y divide-hairline border-y border-hairline">
                 {exp.highlights.map((hl, hIdx) => (
-                  <div key={hIdx} className="p-3.5 rounded-lg bg-white border border-hairline flex items-start gap-2.5">
+                  <div key={hIdx} className="py-3 flex items-start gap-2.5">
                     <CheckCircle2 className="w-4 h-4 text-[#718878] shrink-0 mt-0.5" />
-                    <span className="text-xs text-[#15181D] font-medium leading-snug">{hl}</span>
+                    <span className="text-xs text-[#15181D] font-medium leading-relaxed">{hl}</span>
                   </div>
                 ))}
               </div>
@@ -183,26 +183,31 @@ export const JourneyDetailPage: React.FC = () => {
         {/* Related Projects */}
         {relatedProjects.length > 0 && (
           <section className="pt-10 border-t border-hairline space-y-4">
-            <div className="text-xs font-mono uppercase text-[#3157D5]">
+            <div className="text-xs font-mono uppercase text-[#3157D5] font-semibold">
               Connected Projects
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="divide-y divide-hairline border-y border-hairline">
               {relatedProjects.map((p) => (
                 <Link
                   key={p.slug}
                   to={`/projects/${p.slug}`}
-                  className="p-4 rounded-xl border border-hairline bg-[#EBE8DF]/40 hover:bg-white transition-all group"
+                  className="py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 group block hover:bg-[#EAE6DD]/30 px-2 transition-colors"
                 >
-                  <div className="text-xs font-mono text-[#697078] mb-1">
-                    Technical Project
+                  <div className="space-y-1">
+                    <div className="text-xs font-mono text-[#697078]">
+                      Technical Project · {p.categories.join(' · ')}
+                    </div>
+                    <h4 className="text-base font-serif text-[#15181D] group-hover:text-[#3157D5] transition-colors">
+                      {p.title}
+                    </h4>
+                    <p className="text-xs text-[#697078] max-w-xl line-clamp-1">
+                      {p.summary}
+                    </p>
                   </div>
-                  <h4 className="text-base font-serif text-[#15181D] group-hover:text-[#3157D5] transition-colors flex items-center justify-between">
-                    <span>{p.title}</span>
-                    <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-                  </h4>
-                  <p className="mt-1 text-xs text-[#697078] line-clamp-2">
-                    {p.summary}
-                  </p>
+                  <div className="flex items-center gap-1 text-xs font-mono text-[#15181D] group-hover:text-[#3157D5] shrink-0">
+                    <span>Inspect Study</span>
+                    <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                  </div>
                 </Link>
               ))}
             </div>

@@ -17,11 +17,11 @@ export const ProfessionalExperiencePage: React.FC = () => {
           The professional experience detail you requested is unavailable.
         </p>
         <Link
-          to="/experience"
-          className="mt-6 inline-flex items-center gap-2 px-4 py-2 text-xs font-medium text-white bg-[#15181D] rounded-md"
+          to="/roles"
+          className="mt-6 inline-flex items-center gap-2 px-4 py-2 text-xs font-mono uppercase tracking-wider text-white bg-[#15181D]"
         >
           <ArrowLeft className="w-3.5 h-3.5" />
-          <span>Return to Work Experience</span>
+          <span>Return to Roles</span>
         </Link>
       </div>
     );
@@ -33,11 +33,11 @@ export const ProfessionalExperiencePage: React.FC = () => {
       {/* Back Link */}
       <div className="mb-8">
         <Link
-          to="/experience"
+          to="/roles"
           className="inline-flex items-center gap-1.5 text-xs font-mono text-[#697078] hover:text-[#3157D5] transition-colors"
         >
           <ArrowLeft className="w-3.5 h-3.5" />
-          <span>Back to Work Experience</span>
+          <span>Back to Roles</span>
         </Link>
       </div>
 
@@ -45,7 +45,7 @@ export const ProfessionalExperiencePage: React.FC = () => {
       <header className="space-y-4 mb-10">
         <div className="flex flex-wrap items-center gap-2 text-xs font-mono text-[#697078]">
           <span className="text-[#3157D5] font-semibold uppercase">
-            Work Experience
+            Role Record
           </span>
           <span aria-hidden="true">·</span>
           <span>{exp.period}</span>
@@ -132,9 +132,9 @@ export const ProfessionalExperiencePage: React.FC = () => {
               03. Execution Focus
             </h2>
             <h3 className="text-2xl font-serif tracking-tight">What I Worked On</h3>
-            <div className="space-y-3">
+            <div className="divide-y divide-hairline border-y border-hairline">
               {exp.whatWorkedOn.map((item, idx) => (
-                <div key={idx} className="flex items-start gap-3 p-4 rounded-lg bg-[#EBE8DF]/40 border border-hairline">
+                <div key={idx} className="flex items-start gap-3 py-3">
                   <span className="font-mono text-xs text-[#3157D5] font-semibold mt-0.5">
                     0{idx + 1}.
                   </span>
@@ -168,8 +168,8 @@ export const ProfessionalExperiencePage: React.FC = () => {
             )}
 
             {exp.howContributed && (
-              <div className="p-4 rounded-lg bg-white border border-hairline mt-3">
-                <span className="text-xs font-mono uppercase text-[#3157D5] block mb-1">
+              <div className="border-l-2 border-[#3157D5] pl-4 py-2 mt-4 space-y-1">
+                <span className="text-xs font-mono uppercase text-[#3157D5] font-semibold block">
                   Individual Contribution:
                 </span>
                 <p className="text-sm text-[#15181D]/85 leading-relaxed">
@@ -200,11 +200,11 @@ export const ProfessionalExperiencePage: React.FC = () => {
               06. Connected Technical Work
             </h2>
             <h3 className="text-2xl font-serif tracking-tight">Selected Projects</h3>
-            <div className="space-y-3">
+            <div className="divide-y divide-hairline border-y border-hairline">
               {exp.selectedWork.map((work, wIdx) => (
                 <div
                   key={wIdx}
-                  className="p-5 rounded-xl border border-hairline bg-white shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-4"
+                  className="py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4"
                 >
                   <div className="space-y-1">
                     <h4 className="text-base font-serif text-[#15181D] font-medium">
@@ -218,10 +218,9 @@ export const ProfessionalExperiencePage: React.FC = () => {
                   {work.slug && (
                     <Link
                       to={`/projects/${work.slug}`}
-                      className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-medium text-white bg-[#15181D] rounded-md hover:bg-[#3157D5] transition-colors shrink-0"
+                      className="inline-flex items-center gap-1.5 text-xs font-mono text-[#15181D] hover:text-[#3157D5] transition-colors shrink-0"
                     >
-                      <span>View Technical Study</span>
-                      <ArrowRight className="w-3.5 h-3.5" />
+                      <span>View Technical Study →</span>
                     </Link>
                   )}
                 </div>
@@ -237,11 +236,11 @@ export const ProfessionalExperiencePage: React.FC = () => {
               07. Progress & Results
             </h2>
             <h3 className="text-2xl font-serif tracking-tight">Venture Contributions</h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div className="divide-y divide-hairline border-y border-hairline">
               {exp.outcomes.map((out, oIdx) => (
-                <div key={oIdx} className="p-4 rounded-lg bg-[#EBE8DF]/40 border border-hairline flex items-start gap-2.5">
+                <div key={oIdx} className="py-3 flex items-start gap-2.5">
                   <CheckCircle2 className="w-4 h-4 text-[#718878] shrink-0 mt-0.5" />
-                  <span className="text-xs text-[#15181D] leading-snug">{out}</span>
+                  <span className="text-xs text-[#15181D] leading-relaxed">{out}</span>
                 </div>
               ))}
             </div>

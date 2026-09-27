@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 import { Navbar } from '../components/navigation/Navbar';
 import { Footer } from '../components/navigation/Footer';
+import { CustomCursor } from '../components/ui/CustomCursor';
 
 export const RootLayout: React.FC = () => {
   const { pathname, search, hash } = useLocation();
@@ -20,6 +21,7 @@ export const RootLayout: React.FC = () => {
 
   return (
     <div className="min-h-screen flex flex-col bg-[#F3F1EB] text-[#15181D]">
+      <CustomCursor />
       <Navbar />
       <main className="flex-1 w-full">
         <Outlet />

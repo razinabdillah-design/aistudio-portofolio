@@ -5,6 +5,7 @@ interface MediaPlaceholderProps {
   type: 'portrait' | 'photo' | 'work' | 'experience' | 'journey' | 'systems' | 'cad' | 'circuit' | 'grid' | 'delegation' | 'activity';
   label: string;
   sublabel?: string;
+  slotLabel?: string;
   aspectRatio?: '4:5' | '16:10' | '3:2' | '16:9' | '4:3' | '3:4' | '1:1' | 'auto';
   className?: string;
   src?: string;
@@ -15,6 +16,7 @@ export const MediaPlaceholder: React.FC<MediaPlaceholderProps> = ({
   type,
   label,
   sublabel,
+  slotLabel,
   aspectRatio = '16:9',
   className = '',
   src,
@@ -108,7 +110,7 @@ export const MediaPlaceholder: React.FC<MediaPlaceholderProps> = ({
   if (type === 'portrait') {
     return (
       <div
-        className={`relative overflow-hidden rounded-2xl border border-hairline bg-[#EBE8DF]/80 p-8 flex flex-col justify-between select-none ${selectedAspectClass} ${className}`}
+        className={`relative overflow-hidden border border-hairline bg-[#EBE8DF]/80 p-8 flex flex-col justify-between select-none ${selectedAspectClass} ${className}`}
         aria-label={`Media placeholder: ${label}`}
       >
         {/* Soft studio lighting gradient backdrop */}
@@ -121,21 +123,21 @@ export const MediaPlaceholder: React.FC<MediaPlaceholderProps> = ({
 
         {/* Subtle geometric framing */}
         <div
-          className="absolute inset-4 rounded-xl border border-dashed border-[#15181D]/15 pointer-events-none"
+          className="absolute inset-4 border border-dashed border-[#15181D]/15 pointer-events-none"
         />
 
         {/* Top clean marker */}
         <div className="relative z-10 flex items-center justify-between text-xs tracking-wider text-[#697078] font-mono">
           <span className="flex items-center gap-1.5 uppercase font-medium">
             <span className="w-1.5 h-1.5 rounded-full bg-[#3157D5]" />
-            Natural Portrait Slot
+            {slotLabel || '[ HERO / IDENTITY MEDIA ]'}
           </span>
           <span className="text-[11px] text-[#697078]/70">4:5 Editorial</span>
         </div>
 
         {/* Center Human Portrait Placeholder Silhouette */}
         <div className="relative z-10 my-auto flex flex-col items-center justify-center py-6 text-center">
-          <div className="w-24 h-24 rounded-full bg-white/70 border border-hairline shadow-xs flex items-center justify-center mb-4">
+          <div className="w-20 h-20 rounded-full bg-white/80 border border-hairline flex items-center justify-center mb-4">
             {getIcon()}
           </div>
           <div className="max-w-[280px]">
@@ -160,7 +162,7 @@ export const MediaPlaceholder: React.FC<MediaPlaceholderProps> = ({
   // Calm, designed editorial visual placeholder
   return (
     <div
-      className={`relative overflow-hidden rounded-xl border border-hairline bg-[#EBE8DF]/70 p-6 flex flex-col justify-between select-none ${selectedAspectClass} ${className}`}
+      className={`relative overflow-hidden border border-hairline bg-[#EBE8DF]/70 p-6 flex flex-col justify-between select-none ${selectedAspectClass} ${className}`}
       aria-label={`Visual preview: ${label}`}
     >
       {/* Subtle blueprint grid overlay */}
@@ -178,17 +180,17 @@ export const MediaPlaceholder: React.FC<MediaPlaceholderProps> = ({
       <div className="relative z-10 flex items-center justify-between text-xs tracking-wider text-[#697078] font-mono">
         <span className="flex items-center gap-1.5 uppercase font-medium">
           <span className="w-1.5 h-1.5 rounded-full bg-[#3157D5]" />
-          {getTypeLabel()}
+          {slotLabel || `[ ${getTypeLabel().toUpperCase()} ]`}
         </span>
         <span className="text-[11px] text-[#697078]/70">Visual Record</span>
       </div>
 
       {/* Center conceptual graphic */}
       <div className="relative z-10 my-auto flex flex-col items-center justify-center py-4 text-center">
-        <div className="p-3 rounded-md bg-[#F3F1EB] border border-hairline shadow-xs mb-3">
+        <div className="p-3 bg-[#F3F1EB] border border-hairline shadow-xs mb-3">
           {getIcon()}
         </div>
-        <div className="max-w-[300px]">
+        <div className="max-w-[320px]">
           <h4 className="text-sm font-semibold tracking-tight text-[#15181D] leading-snug">
             {label}
           </h4>

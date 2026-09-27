@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
-import { ArrowRight, ArrowUpRight, Compass, Award, Building2, Users2, Calendar, MapPin } from 'lucide-react';
+import { ArrowRight, ArrowUpRight } from 'lucide-react';
 import { journeyExperiences } from '../data/journey';
 import { professionalExperiences } from '../data/professional';
 import { journeyCategories } from '../data/categories';
@@ -9,19 +9,33 @@ import { MediaPlaceholder } from '../components/ui/MediaPlaceholder';
 export const JourneyPage: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const currentCategory = searchParams.get('category') || 'all';
+  const currentLens = searchParams.get('lens');
+
+  const lensLabels: Record<string, string> = {
+    'events-operations': 'Events & Operations',
+    'data-systems': 'Data & Systems',
+    'international-communication': 'International & Communication',
+    'professional-partnership': 'Professional & Partnership',
+    'technical-projects': 'Technical & Projects',
+  };
 
   const handleSelectCategory = (catId: string) => {
+    const nextParams = new URLSearchParams(searchParams);
+    nextParams.delete('lens');
     if (catId === 'all') {
-      searchParams.delete('category');
-      setSearchParams(searchParams);
+      nextParams.delete('category');
     } else {
-      setSearchParams({ category: catId });
+      nextParams.set('category', catId);
     }
+    setSearchParams(nextParams);
+  };
+
+  const handleClearFilters = () => {
+    setSearchParams({});
   };
 
   // Build unified journey list including Aither as Professional Experience
   const allJourneyItems = useMemo(() => {
-    // Convert Aither into a journey representation pointing to /experience/aither
     const aitherExp = professionalExperiences.find((p) => p.slug === 'aither');
     const aitherAsJourney = aitherExp
       ? {
@@ -36,12 +50,32 @@ export const JourneyPage: React.FC = () => {
           highlights: aitherExp.responsibilities,
           isProfessionalExperience: true,
           cover: 'experience/aither-overview',
+          discovery: aitherExp.discovery,
         }
       : null;
 
     const list = aitherAsJourney
       ? [aitherAsJourney, ...journeyExperiences.map((j) => ({ ...j, isProfessionalExperience: false }))]
       : journeyExperiences.map((j) => ({ ...j, isProfessionalExperience: false }));
+
+    if (currentLens) {
+      return list.filter((item) => {
+        if (currentLens === 'events-operations') {
+          return item.discovery?.lenses?.includes('events-operations') ||
+            item.categories.some((c) => ['committee', 'volunteer', 'organization'].includes(c));
+        }
+        if (currentLens === 'data-systems') {
+          return item.discovery?.lenses?.includes('data-systems') ||
+            item.categories.includes('systems' as any) ||
+            item.slug === 'pkkmb-its' || item.slug === 'asfera';
+        }
+        if (currentLens === 'international-communication') {
+          return item.discovery?.lenses?.includes('international-communication') ||
+            item.categories.includes('international' as any);
+        }
+        return item.discovery?.lenses?.includes(currentLens as any);
+      });
+    }
 
     if (currentCategory === 'all') {
       return list;
@@ -50,7 +84,7 @@ export const JourneyPage: React.FC = () => {
     return list.filter((item) =>
       item.categories.includes(currentCategory as any)
     );
-  }, [currentCategory]);
+  }, [currentCategory, currentLens]);
 
   return (
     <div className="py-12 md:py-20 max-w-6xl mx-auto px-4 sm:px-6">
@@ -63,25 +97,43 @@ export const JourneyPage: React.FC = () => {
           </span>
         </div>
         <h1 className="text-4xl sm:text-5xl font-serif text-[#15181D] tracking-tight">
-          My Journey
+          Journey Archive
         </h1>
-        <p className="mt-4 text-lg text-[#697078] leading-relaxed text-balance">
-          Different environments taught me different things. Rather than a linear timeline, this feed reflects the varied contexts—from international research symposiums to commercial startup validation and large-scale operations—that shaped how I think and work.
+        <p className="mt-4 text-base sm:text-lg text-[#697078] leading-relaxed text-balance">
+          A chronological, comprehensive record across university committees, operational data roles, clean-air venture initiatives, and international delegations.
         </p>
       </div>
 
-      {/* Filter Tabs / Segmented Controls with URL Query State */}
-      <div className="mb-14 overflow-x-auto pb-2 scrollbar-none">
-        <div className="flex items-center gap-1.5 p-1 bg-[#EBE8DF]/60 rounded-lg border border-hairline w-max">
+      {/* Lens Alert if filtering by Discovery Lens */}
+      {currentLens && (
+        <div className="mb-8 pb-4 border-b border-hairline flex items-center justify-between gap-4 text-xs font-mono">
+          <div className="flex items-center gap-2">
+            <span className="text-[#697078]">Filtered by Lens:</span>
+            <span className="text-[#15181D] font-bold">
+              {lensLabels[currentLens] || currentLens}
+            </span>
+          </div>
+          <button
+            onClick={handleClearFilters}
+            className="text-[#3157D5] hover:underline"
+          >
+            Clear lens filter
+          </button>
+        </div>
+      )}
+
+      {/* Category Navigation (Cardless horizontal text bar) */}
+      <div className="mb-12 overflow-x-auto pb-2 scrollbar-none">
+        <div className="flex items-center gap-3 border-b border-hairline pb-2 w-max text-xs font-mono">
           {journeyCategories.map((cat) => {
-            const isSelected = currentCategory === cat.id;
+            const isSelected = currentCategory === cat.id && !currentLens;
             return (
               <button
                 key={cat.id}
                 onClick={() => handleSelectCategory(cat.id)}
-                className={`px-3.5 py-1.5 text-xs font-medium rounded-md transition-all whitespace-nowrap ${
+                className={`py-1.5 transition-colors whitespace-nowrap ${
                   isSelected
-                    ? 'bg-white text-[#15181D] shadow-xs font-semibold'
+                    ? 'border-b-2 border-[#15181D] text-[#15181D] font-bold'
                     : 'text-[#697078] hover:text-[#15181D]'
                 }`}
               >
@@ -92,117 +144,46 @@ export const JourneyPage: React.FC = () => {
         </div>
       </div>
 
-      {/* Editorial Varied-Hierarchy Feed (Not a uniform 3x3 card grid) */}
-      <div className="space-y-12">
+      {/* Cardless Chronological Architectural Stream */}
+      <div className="divide-y divide-hairline border-y border-hairline">
         {allJourneyItems.map((item, index) => {
-          const isLargeFeature = index === 0;
           const targetUrl = item.isProfessionalExperience
             ? `/experience/${item.slug}`
             : `/journey/${item.slug}`;
 
-          // First item or featured items rendered as expansive split-editorial feature
-          if (isLargeFeature) {
-            return (
-              <article
-                key={item.slug}
-                className="rounded-2xl border border-hairline bg-[#F3F1EB] p-8 sm:p-10 shadow-xs hover:border-[#3157D5]/40 transition-colors"
-              >
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-                  <div className="lg:col-span-5">
-                    <MediaPlaceholder
-                      type={item.isProfessionalExperience ? 'experience' : 'journey'}
-                      label={item.title}
-                      sublabel={item.summary}
-                      aspectRatio="4:3"
-                    />
-                  </div>
-
-                  <div className="lg:col-span-7 flex flex-col justify-between space-y-5">
-                    <div>
-                      <div className="flex flex-wrap items-center gap-3 text-xs text-[#697078] mb-3">
-                        <span className="font-mono text-[#3157D5] font-semibold uppercase">
-                          Featured Insight
-                        </span>
-                        <span aria-hidden="true">·</span>
-                        <span>{item.period}</span>
-                        {item.location && (
-                          <>
-                            <span aria-hidden="true">·</span>
-                            <span>{item.location}</span>
-                          </>
-                        )}
-                      </div>
-
-                      <h2 className="text-2xl sm:text-3xl font-serif text-[#15181D] tracking-tight">
-                        <Link to={targetUrl} className="hover:text-[#3157D5] transition-colors">
-                          {item.title}
-                        </Link>
-                      </h2>
-
-                      <div className="mt-1 text-xs font-medium text-[#718878]">
-                        {item.role}
-                      </div>
-
-                      <p className="mt-4 text-sm sm:text-base text-[#15181D]/80 leading-relaxed">
-                        {item.summary}
-                      </p>
-
-                      {item.highlights && (
-                        <div className="mt-5 space-y-1.5">
-                          {item.highlights.slice(0, 2).map((hl, hIdx) => (
-                            <div key={hIdx} className="text-xs text-[#697078] flex items-start gap-2">
-                              <span className="text-[#3157D5] font-bold">›</span>
-                              <span className="leading-snug">{hl}</span>
-                            </div>
-                          ))}
-                        </div>
-                      )}
-                    </div>
-
-                    <div className="pt-4 border-t border-hairline flex items-center justify-between">
-                      <Link
-                        to={targetUrl}
-                        className="inline-flex items-center gap-2 text-xs font-semibold text-[#15181D] hover:text-[#3157D5] transition-colors"
-                      >
-                        <span>{item.isProfessionalExperience ? 'Inspect Venture Role' : 'Read Full Journey Story'}</span>
-                        <ArrowRight className="w-3.5 h-3.5" />
-                      </Link>
-
-                      <div className="flex items-center gap-2 text-xs font-mono text-[#697078]">
-                        {item.categories.map((c) => (
-                          <span key={c} className="capitalize">
-                            {c}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </article>
-            );
-          }
-
-          // Medium / Number-led experiences
           const scaleMetric = (item as any).scaleMetric;
 
           return (
             <article
               key={item.slug}
-              className="rounded-xl border border-hairline bg-[#F3F1EB] p-6 sm:p-8 hover:border-[#3157D5]/40 transition-colors shadow-xs"
+              className="py-10 sm:py-12 group"
             >
-              <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-start">
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
                 
-                {/* Left metadata & title (7 cols) */}
-                <div className="md:col-span-8 space-y-3">
-                  <div className="flex flex-wrap items-center gap-2 text-xs text-[#697078]">
-                    <span className="font-mono text-[#3157D5] font-semibold">
+                {/* Visual Artifact Preview Frame (4 cols) */}
+                <div className="lg:col-span-4">
+                  <div className="border border-hairline bg-[#EBE8DF]/40 overflow-hidden">
+                    <MediaPlaceholder
+                      type={item.isProfessionalExperience ? 'experience' : 'journey'}
+                      label={item.title}
+                      aspectRatio="16:9"
+                    />
+                  </div>
+                </div>
+
+                {/* Information Ledger (8 cols) */}
+                <div className="lg:col-span-8 space-y-4">
+                  
+                  {/* Meta: Index, Period, Location */}
+                  <div className="flex flex-wrap items-center gap-2 text-xs font-mono text-[#697078]">
+                    <span className="text-[#3157D5] font-semibold">
                       0{index + 1}.
                     </span>
                     <span className="font-medium text-[#15181D]">
                       {item.organization || item.title}
                     </span>
                     <span aria-hidden="true">·</span>
-                    <span className="font-mono">{item.period}</span>
+                    <span>{item.period}</span>
                     {item.location && (
                       <>
                         <span aria-hidden="true">·</span>
@@ -211,38 +192,54 @@ export const JourneyPage: React.FC = () => {
                     )}
                   </div>
 
-                  <h3 className="text-xl sm:text-2xl font-serif text-[#15181D] tracking-tight">
-                    <Link to={targetUrl} className="hover:text-[#3157D5] transition-colors">
-                      {item.title}
-                    </Link>
-                  </h3>
-
-                  <div className="text-xs font-medium text-[#718878]">
-                    Role: {item.role}
+                  {/* Title & Role */}
+                  <div className="space-y-1">
+                    <h2 className="text-2xl sm:text-3xl font-serif text-[#15181D] tracking-tight group-hover:text-[#3157D5] transition-colors">
+                      <Link to={targetUrl}>
+                        {item.title}
+                      </Link>
+                    </h2>
+                    <p className="text-xs font-mono text-[#3157D5] font-medium">
+                      Role: {item.role}
+                    </p>
                   </div>
 
-                  <p className="text-sm text-[#15181D]/80 leading-relaxed">
+                  {/* Summary */}
+                  <p className="text-sm text-[#15181D]/80 leading-relaxed font-sans">
                     {item.summary}
                   </p>
 
-                  <div className="pt-2">
+                  {/* Scale Metric if present */}
+                  {scaleMetric && (
+                    <div className="pt-1 text-xs font-mono text-[#697078] flex items-center gap-2">
+                      <span className="text-[10px] uppercase tracking-wider text-[#3157D5]">Scale:</span>
+                      <span>
+                        {typeof scaleMetric === 'string'
+                          ? scaleMetric
+                          : `${scaleMetric.value} — ${scaleMetric.label}${scaleMetric.context ? ` (${scaleMetric.context})` : ''}`}
+                      </span>
+                    </div>
+                  )}
+
+                  {/* Deep Link Action */}
+                  <div className="pt-2 flex items-center justify-between">
                     <Link
                       to={targetUrl}
-                      className="text-xs font-semibold text-[#3157D5] hover:text-[#15181D] transition-colors inline-flex items-center gap-1.5"
+                      className="inline-flex items-center gap-1.5 text-xs font-mono text-[#15181D] group-hover:text-[#3157D5] transition-colors"
                     >
-                      <span>{item.isProfessionalExperience ? 'Explore Experience' : 'Read Journey'}</span>
-                      <ArrowRight className="w-3.5 h-3.5" />
+                      <span>{item.isProfessionalExperience ? 'Inspect Venture Role' : 'Read Full Journey Record'}</span>
+                      <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                     </Link>
-                  </div>
-                </div>
 
-                {/* Right Contextual visual preview (4 cols) */}
-                <div className="md:col-span-4">
-                  <MediaPlaceholder
-                    type={item.isProfessionalExperience ? 'experience' : 'journey'}
-                    label={item.title}
-                    aspectRatio="16:9"
-                  />
+                    <div className="flex items-center gap-2 text-xs font-mono text-[#697078]">
+                      {item.categories.map((c) => (
+                        <span key={c} className="capitalize">
+                          {c}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+
                 </div>
 
               </div>

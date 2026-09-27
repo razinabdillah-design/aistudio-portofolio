@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, ArrowUpRight, Building2, Wind } from 'lucide-react';
+import { ArrowRight, ArrowUpRight } from 'lucide-react';
 import { professionalExperiences } from '../data/professional';
 import { MediaPlaceholder } from '../components/ui/MediaPlaceholder';
 
@@ -20,14 +20,14 @@ export const WorkExperiencePage: React.FC = () => {
         <h1 className="text-4xl sm:text-5xl font-serif text-[#15181D] tracking-tight">
           Work Experience
         </h1>
-        <p className="mt-4 text-lg text-[#697078] leading-relaxed text-balance">
+        <p className="mt-4 text-base sm:text-lg text-[#697078] leading-relaxed text-balance">
           Professional working environments where engineering concepts meet practical market realities, stakeholder collaboration, and commercial strategy.
         </p>
       </div>
 
-      {/* Featured Venture Card — Generous Editorial Space */}
-      <div className="rounded-2xl border border-hairline bg-[#F3F1EB] p-8 sm:p-12 shadow-xs">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+      {/* Cardless Venture Profile: Generous Open Editorial Space */}
+      <div className="border-t border-b border-hairline py-12 md:py-16">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
           
           {/* Left Column: Role Details and Scope (7 cols) */}
           <div className="lg:col-span-7 space-y-6">
@@ -53,26 +53,21 @@ export const WorkExperiencePage: React.FC = () => {
               </p>
             </div>
 
-            <p className="text-sm sm:text-base text-[#15181D]/80 leading-relaxed">
+            <p className="text-sm sm:text-base text-[#15181D]/80 leading-relaxed font-sans">
               {aither.summary}
             </p>
 
             {/* Scope and Responsibilities */}
-            <div className="space-y-3 pt-2">
-              <div className="text-xs font-mono uppercase tracking-wider text-[#697078]">
-                Key Areas of Contribution
+            <div className="pt-2">
+              <div className="text-xs font-mono uppercase tracking-wider text-[#697078] mb-1">
+                Core Contribution Scope
               </div>
-              <ul className="space-y-2 text-sm text-[#15181D]/80">
-                {aither.responsibilities.map((resp, idx) => (
-                  <li key={idx} className="flex items-start gap-2.5">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#3157D5] mt-2 shrink-0" />
-                    <span className="leading-relaxed">{resp}</span>
-                  </li>
-                ))}
-              </ul>
+              <p className="text-sm text-[#15181D]/85 font-sans leading-relaxed">
+                Partnership research, commercial proposals, solution positioning, and stakeholder communication for clean-air technology deployment.
+              </p>
             </div>
 
-            {/* Operating Areas */}
+            {/* Operating Areas (Unboxed text with typographic separators, zero pills) */}
             <div className="pt-4 border-t border-hairline">
               <div className="text-xs font-mono uppercase tracking-wider text-[#697078] mb-2">
                 Operating Domains
@@ -89,39 +84,42 @@ export const WorkExperiencePage: React.FC = () => {
               </div>
             </div>
 
-            {/* Action */}
+            {/* Actions */}
             <div className="pt-6 border-t border-hairline flex flex-wrap items-center justify-between gap-4">
               <Link
                 to={`/experience/${aither.slug}`}
-                className="inline-flex items-center gap-2 px-5 py-2.5 text-xs font-medium text-white bg-[#15181D] rounded-md hover:bg-[#3157D5] transition-colors shadow-xs group"
+                className="inline-flex items-center gap-2 px-5 py-2.5 text-xs font-medium text-white bg-[#15181D] hover:bg-[#3157D5] transition-colors shadow-xs group"
               >
-                <span>Explore Full Experience</span>
+                <span>Inspect Full Venture Dossier</span>
                 <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
               </Link>
 
               <Link
                 to="/projects/air-purifier"
-                className="text-xs font-medium text-[#697078] hover:text-[#3157D5] transition-colors inline-flex items-center gap-1"
+                className="text-xs font-mono text-[#697078] hover:text-[#3157D5] transition-colors inline-flex items-center gap-1"
               >
                 <span>Related CAD Project →</span>
               </Link>
             </div>
           </div>
 
-          {/* Right Column: Visual Artifact Placeholder (5 cols) */}
+          {/* Right Column: Visual Artifact & Context (5 cols) */}
           <div className="lg:col-span-5 space-y-6">
-            <MediaPlaceholder
-              type="experience"
-              label={`${aither.organization} — Venture Architecture`}
-              sublabel="Market research, strategic partnership proposals, and clean-air technology positioning"
-              aspectRatio="4:3"
-            />
+            <div className="border border-hairline bg-[#EBE8DF]/40 overflow-hidden">
+              <MediaPlaceholder
+                type="experience"
+                label={`${aither.organization} — Venture Architecture`}
+                sublabel="Market research, strategic partnership proposals, and clean-air technology positioning"
+                aspectRatio="4:3"
+              />
+            </div>
 
-            <div className="p-5 rounded-xl bg-[#EBE8DF]/50 border border-hairline space-y-2">
-              <div className="text-xs font-mono uppercase text-[#3157D5] font-medium">
+            {/* Context callout: open left-accent line, zero card box */}
+            <div className="border-l-2 border-[#3157D5] pl-4 py-1 space-y-1">
+              <div className="text-xs font-mono uppercase text-[#3157D5] font-semibold">
                 Context
               </div>
-              <p className="text-xs text-[#697078] leading-relaxed">
+              <p className="text-xs text-[#697078] leading-relaxed font-sans">
                 {aither.orgContext}
               </p>
             </div>

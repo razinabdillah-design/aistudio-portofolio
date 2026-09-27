@@ -1,229 +1,328 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Mail, Linkedin, Github, ExternalLink, FileText } from 'lucide-react';
+import { Mail, Linkedin, Github, Instagram, ArrowUpRight, FileText } from 'lucide-react';
 import { profile } from '../data/profile';
+import { MediaPlaceholder } from '../components/ui/MediaPlaceholder';
 
 export const AboutPage: React.FC = () => {
+  const fieldsOfInterest = [
+    {
+      title: 'Electrical & Energy Systems',
+      description: 'Power flow simulations, admittance matrices, distribution network modeling, and protection studies.',
+    },
+    {
+      title: 'Environmental & Clean Technology',
+      description: 'Clean-air filtration mechanics, CAD prototyping, airflow modeling, and venture positioning.',
+    },
+    {
+      title: 'AI & Digital Tools',
+      description: 'Exploring multi-agent workflows, data structuring, and computational tools for technical problems.',
+    },
+    {
+      title: 'Technical Project Development',
+      description: 'Circuit schematic capture, two-layer PCB routing, and end-to-end prototyping methodologies.',
+    },
+    {
+      title: 'Organizations & Event Operations',
+      description: 'Centralized participant databases, automated verification schemas, and multi-branch coordination.',
+    },
+  ];
+
+  const developingCapabilities = [
+    'Stronger technical engineering foundations across power dynamics and circuit layout',
+    'Building more complete technical project artifacts from concept to verified documentation',
+    'Better project and organizational systems management with transparent data recaps',
+    'Working fluently across technical engineering and non-technical stakeholder environments',
+    'Clearer, more concise professional communication and presentation defense',
+  ];
+
   return (
-    <div className="py-12 md:py-20 max-w-4xl mx-auto px-4 sm:px-6 space-y-16">
+    <div className="w-full bg-[#F3F1EB] text-[#15181D]">
       
-      {/* Header / Intro */}
-      <section className="space-y-4">
-        <div className="flex items-center gap-2">
-          <span className="text-xs font-mono tracking-widest uppercase text-[#3157D5]">
-            Background & Perspective
-          </span>
-        </div>
-        <h1 className="text-4xl sm:text-5xl font-serif text-[#15181D] tracking-tight">
-          About Razin
-        </h1>
-        <p className="text-lg sm:text-xl font-serif text-[#697078] leading-relaxed max-w-2xl text-balance">
-          Electrical engineering undergraduate at ITS exploring engineering, clean technology, and operational structure.
-        </p>
-      </section>
-
-      {/* 01. Background */}
-      <section className="pt-8 border-t border-hairline space-y-4">
-        <h2 className="text-xs font-mono uppercase tracking-wider text-[#3157D5]">
-          01. Background & Education
-        </h2>
-        <h3 className="text-2xl font-serif text-[#15181D]">Who I Am</h3>
-        <div className="space-y-4 text-sm sm:text-base text-[#15181D]/85 leading-relaxed">
-          <p>
-            I am currently an Electrical Engineering undergraduate at Institut Teknologi Sepuluh Nopember (ITS) in Surabaya, Indonesia. My academic coursework centers on electrical power distribution, circuit analysis, and computational engineering methods.
-          </p>
-          <p>
-            Beyond coursework, my learning has grown through direct experimentation: modeling power network load flows, designing parametric 3D CAD assemblies for indoor air purifiers, and exploring multi-agent software architectures.
-          </p>
-          <p>
-            I am particularly interested in environments where technical engineering principles connect with operational coordination—translating messy problems into structured, verifiable solutions.
-          </p>
-        </div>
-      </section>
-
-      {/* 02. Experience & Environments */}
-      <section className="pt-8 border-t border-hairline space-y-4">
-        <h2 className="text-xs font-mono uppercase tracking-wider text-[#3157D5]">
-          02. Formative Environments
-        </h2>
-        <h3 className="text-2xl font-serif text-[#15181D]">Where I Have Learned</h3>
-        <div className="space-y-4 text-sm sm:text-base text-[#15181D]/85 leading-relaxed">
-          <p>
-            Different environments have demanded different ways of thinking:
-          </p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
-            <div className="p-5 rounded-xl border border-hairline bg-[#F3F1EB]">
-              <div className="text-xs font-mono text-[#3157D5] mb-1 uppercase">Venture Development</div>
-              <h4 className="text-base font-serif font-medium text-[#15181D] mb-1">
-                Aither Clean-Air
-              </h4>
-              <p className="text-xs text-[#697078] leading-relaxed">
-                Formulating strategic partnership proposals, conducting market research, and understanding the challenges of positioning clean-air hardware solutions.
-              </p>
-              <Link to="/experience/aither" className="mt-3 text-xs font-medium text-[#3157D5] inline-flex items-center gap-1 hover:underline">
-                <span>Inspect role</span> →
-              </Link>
+      {/* ============================================================== */}
+      {/* 01. ABOUT HERO / WHO I AM                                      */}
+      {/* ============================================================== */}
+      <section className="py-14 sm:py-20 md:py-24 border-b border-hairline">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-10 lg:gap-16 items-center">
+            
+            {/* Portrait / Personal Photo Space (Order 1 on mobile, 6 cols on desktop) */}
+            <div className="order-1 lg:order-2 lg:col-span-6">
+              <div className="border border-hairline bg-[#EBE8DF] overflow-hidden shadow-xs">
+                <MediaPlaceholder
+                  type="portrait"
+                  aspectRatio="4:5"
+                  label="Razin Abdillah — About Portrait"
+                  slotLabel="[ RAZIN ABOUT PHOTO ]"
+                  sublabel="Natural personal portrait space. Preserves intentional open framing."
+                  className="w-full"
+                />
+              </div>
             </div>
 
-            <div className="p-5 rounded-xl border border-hairline bg-[#F3F1EB]">
-              <div className="text-xs font-mono text-[#C98259] mb-1 uppercase">Academic Presentation</div>
-              <h4 className="text-base font-serif font-medium text-[#15181D] mb-1">
-                International Future Leaders
-              </h4>
-              <p className="text-xs text-[#697078] leading-relaxed">
-                Presenting environmental technology research at academic venues in Singapore and Malaysia, receiving 1st Best Presentation and 2nd Best Paper.
-              </p>
-              <Link to="/journey/international-future-leaders" className="mt-3 text-xs font-medium text-[#3157D5] inline-flex items-center gap-1 hover:underline">
-                <span>Read journey</span> →
-              </Link>
+            {/* Oversized Editorial Typography & Identity (Order 2 on mobile, 6 cols on desktop) */}
+            <div className="order-2 lg:order-1 lg:col-span-6 space-y-5 sm:space-y-6">
+              <div className="space-y-1">
+                <span className="text-[11px] sm:text-xs font-mono uppercase tracking-widest text-[#3157D5] font-semibold">
+                  Personal Record
+                </span>
+                <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-serif text-[#15181D] tracking-tight leading-[0.92]">
+                  ABOUT<br />RAZIN
+                </h1>
+              </div>
+
+              <div className="space-y-3.5 sm:space-y-4 text-sm sm:text-base md:text-lg text-[#15181D]/85 font-sans leading-relaxed">
+                <p>
+                  I'm Razin Abdillah, an Electrical Engineering student at Institut Teknologi Sepuluh Nopember (ITS) in Surabaya, Indonesia.
+                </p>
+                <p>
+                  Most of my experience so far has come from moving between technical projects, student organizations, event operations, international delegation programs, and early professional venture work.
+                </p>
+              </div>
+
+              <div className="pt-1 sm:pt-2 flex flex-wrap items-center gap-3 sm:gap-4 text-xs font-mono text-[#697078]">
+                <span>Surabaya, Indonesia</span>
+                <span>·</span>
+                <span>ITS Electrical Engineering</span>
+                <span>·</span>
+                <Link to="/cv" className="text-[#3157D5] hover:underline inline-flex items-center gap-1 font-semibold min-h-[44px] items-center">
+                  <span>Resume (PDF)</span>
+                  <ArrowUpRight className="w-3.5 h-3.5" />
+                </Link>
+              </div>
             </div>
 
-            <div className="p-5 rounded-xl border border-hairline bg-[#F3F1EB]">
-              <div className="text-xs font-mono text-[#718878] mb-1 uppercase">Campus Operations</div>
-              <h4 className="text-base font-serif font-medium text-[#15181D] mb-1">
-                PKKMB ITS & J-Fest 37
-              </h4>
-              <p className="text-xs text-[#697078] leading-relaxed">
-                Managing centralized student data recaps and fundraising commercial operations behind large campus-wide initiatives.
-              </p>
-              <Link to="/journey/pkkmb-its" className="mt-3 text-xs font-medium text-[#3157D5] inline-flex items-center gap-1 hover:underline">
-                <span>View operational scope</span> →
-              </Link>
-            </div>
-
-            <div className="p-5 rounded-xl border border-hairline bg-[#F3F1EB]">
-              <div className="text-xs font-mono text-[#7696E8] mb-1 uppercase">Student Communities</div>
-              <h4 className="text-base font-serif font-medium text-[#15181D] mb-1">
-                IEEE & TDC ITS
-              </h4>
-              <p className="text-xs text-[#697078] leading-relaxed">
-                Participating in technical student chapters and supporting associate member development within campus entrepreneurship programs.
-              </p>
-              <Link to="/journey?category=organization" className="mt-3 text-xs font-medium text-[#3157D5] inline-flex items-center gap-1 hover:underline">
-                <span>Explore organizations</span> →
-              </Link>
-            </div>
           </div>
         </div>
       </section>
 
-      {/* 03. How I Approach Problems */}
-      <section className="pt-8 border-t border-hairline space-y-4">
-        <h2 className="text-xs font-mono uppercase tracking-wider text-[#3157D5]">
-          03. Working Approach
-        </h2>
-        <h3 className="text-2xl font-serif text-[#15181D]">How I Tend to Work</h3>
-        <div className="space-y-4 text-sm sm:text-base text-[#15181D]/85 leading-relaxed">
-          <p>
-            When approaching an unfamiliar challenge, I generally follow an iterative cycle:
-          </p>
-          <ul className="space-y-2.5 text-sm text-[#15181D]/85 list-disc list-outside pl-5">
-            <li>
-              <strong>Explore & Map:</strong> Understand the context and constraints before proposing tools or solutions.
-            </li>
-            <li>
-              <strong>Break Down Complexity:</strong> Separate ambiguous problems into smaller, verifiable components.
-            </li>
-            <li>
-              <strong>Structure the Data:</strong> Establish reliable data records or mathematical equations rather than relying on guesswork.
-            </li>
-            <li>
-              <strong>Test & Validate:</strong> Use simulation, prototypes, or operational pilots to see where assumptions break down.
-            </li>
-            <li>
-              <strong>Communicate Clearly:</strong> Document limitations and share findings with team members in clear, accessible language.
-            </li>
-          </ul>
+      {/* ============================================================== */}
+      {/* 02. BACKGROUND & EDUCATION                                     */}
+      {/* ============================================================== */}
+      <section className="py-16 md:py-24 border-b border-hairline bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 space-y-10">
+          
+          <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-4 pb-6 border-b border-hairline">
+            <div className="space-y-1">
+              <span className="text-xs font-mono uppercase tracking-widest text-[#3157D5] font-semibold">
+                02. Academic Context
+              </span>
+              <h2 className="text-3xl sm:text-4xl font-serif text-[#15181D] tracking-tight">
+                Background & Education
+              </h2>
+            </div>
+            <span className="text-xs font-mono text-[#697078]">
+              Verified Academic Institution
+            </span>
+          </div>
+
+          <div className="divide-y divide-hairline border-y border-hairline">
+            <div className="py-6 sm:py-8 grid grid-cols-1 md:grid-cols-12 gap-4 items-baseline">
+              <div className="md:col-span-3 text-xs font-mono text-[#3157D5] font-semibold">
+                2023 — Present
+              </div>
+              <div className="md:col-span-5 space-y-1">
+                <div className="text-xl sm:text-2xl font-serif text-[#15181D]">
+                  Institut Teknologi Sepuluh Nopember (ITS)
+                </div>
+                <div className="text-sm font-sans text-[#697078]">
+                  Undergraduate Program in Electrical Engineering
+                </div>
+              </div>
+              <div className="md:col-span-4 text-xs font-mono text-[#697078] leading-relaxed">
+                Coursework focus: Power systems analysis, grid simulation, basic circuit hardware, and mathematics. Surabaya, East Java, Indonesia.
+              </div>
+            </div>
+          </div>
+
         </div>
       </section>
 
-      {/* 04. What I Am Exploring Now */}
-      <section id="now" className="pt-8 border-t border-hairline space-y-6 scroll-mt-24">
-        <div className="space-y-2">
-          <h2 className="text-xs font-mono uppercase tracking-wider text-[#3157D5]">
-            04. Active Exploration
-          </h2>
-          <h3 className="text-2xl font-serif text-[#15181D]">Currently Exploring</h3>
-          <p className="text-sm text-[#697078] leading-relaxed">
-            Topics and technical domains of active study:
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-          {profile.statusExploring.map((area, idx) => (
-            <div key={idx} className="flex items-center justify-between p-3.5 rounded-lg bg-[#EBE8DF]/40 border border-hairline">
-              <span className="text-sm font-medium text-[#15181D]">{area}</span>
-              <span className="text-xs font-mono text-[#3157D5]">Exploring</span>
+      {/* ============================================================== */}
+      {/* 03. FIELDS OF INTEREST                                         */}
+      {/* ============================================================== */}
+      <section className="py-16 md:py-24 border-b border-hairline bg-[#FAF7F2]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 space-y-10">
+          
+          <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-4 pb-6 border-b border-hairline">
+            <div className="space-y-1">
+              <span className="text-xs font-mono uppercase tracking-widest text-[#3157D5] font-semibold">
+                03. Trajectory
+              </span>
+              <h2 className="text-3xl sm:text-4xl font-serif text-[#15181D] tracking-tight">
+                Fields of Interest
+              </h2>
             </div>
-          ))}
+            <p className="text-xs font-mono text-[#697078] max-w-sm sm:text-right">
+              Current intellectual and technical interests supported by coursework, projects, and initiatives.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {fieldsOfInterest.map((field, idx) => (
+              <div key={idx} className="space-y-2 pb-6 border-b border-hairline">
+                <div className="text-xs font-mono text-[#3157D5] font-semibold">
+                  0{idx + 1}
+                </div>
+                <h3 className="text-xl font-serif text-[#15181D]">
+                  {field.title}
+                </h3>
+                <p className="text-sm text-[#15181D]/75 font-sans leading-relaxed">
+                  {field.description}
+                </p>
+              </div>
+            ))}
+          </div>
+
         </div>
       </section>
 
-      {/* 05. Contact */}
-      <section id="contact" className="pt-8 border-t border-hairline space-y-6 scroll-mt-24">
-        <div className="space-y-2">
-          <h2 className="text-xs font-mono uppercase tracking-wider text-[#3157D5]">
-            05. Contact
-          </h2>
-          <h3 className="text-2xl font-serif text-[#15181D]">Get in Touch</h3>
-          <p className="text-sm text-[#697078] leading-relaxed">
-            Feel free to reach out for questions regarding electrical engineering coursework, project collaborations, or student initiatives.
-          </p>
-        </div>
-
-        <div className="p-6 rounded-xl border border-hairline bg-white shadow-xs space-y-4">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-            <div>
-              <div className="text-xs font-mono uppercase text-[#697078]">Email</div>
-              <a
-                href={`mailto:${profile.email}`}
-                className="text-base sm:text-lg font-serif text-[#15181D] hover:text-[#3157D5] transition-colors"
-              >
-                {profile.email}
-              </a>
+      {/* ============================================================== */}
+      {/* 04. WHAT I'M BUILDING / DEVELOPING                             */}
+      {/* ============================================================== */}
+      <section className="py-16 md:py-24 border-b border-hairline bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 space-y-10">
+          
+          <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-4 pb-6 border-b border-hairline">
+            <div className="space-y-1">
+              <span className="text-xs font-mono uppercase tracking-widest text-[#3157D5] font-semibold">
+                04. Growth Focus
+              </span>
+              <h2 className="text-3xl sm:text-4xl font-serif text-[#15181D] tracking-tight">
+                What I'm Currently Developing
+              </h2>
             </div>
+            <span className="text-xs font-mono text-[#697078]">
+              Active Skill Foundations
+            </span>
+          </div>
+
+          <div className="divide-y divide-hairline border-y border-hairline">
+            {developingCapabilities.map((item, idx) => (
+              <div key={idx} className="py-4 sm:py-5 flex items-start gap-4">
+                <span className="text-xs font-mono text-[#3157D5] font-semibold mt-0.5">
+                  0{idx + 1}.
+                </span>
+                <span className="text-sm sm:text-base text-[#15181D]/85 font-sans leading-relaxed">
+                  {item}
+                </span>
+              </div>
+            ))}
+          </div>
+
+        </div>
+      </section>
+
+      {/* ============================================================== */}
+      {/* 05. CONNECT                                                    */}
+      {/* ============================================================== */}
+      <section className="py-16 md:py-24 bg-[#15181D] text-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 space-y-10">
+          
+          <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-4 pb-6 border-b border-white/15">
+            <div className="space-y-1">
+              <span className="text-xs font-mono uppercase tracking-widest text-[#7696E8] font-semibold">
+                05. Inquiries & Socials
+              </span>
+              <h2 className="text-3xl sm:text-4xl font-serif text-white tracking-tight">
+                Connect With Razin
+              </h2>
+            </div>
+            <span className="text-xs font-mono text-[#F3F1EB]/60">
+              Direct Channels & Verified Profiles
+            </span>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 pt-2">
+            
+            {/* Email */}
             <a
               href={`mailto:${profile.email}`}
-              className="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-medium text-white bg-[#15181D] rounded-md hover:bg-[#3157D5] transition-colors shrink-0"
+              className="p-6 border border-white/15 bg-white/[0.02] hover:bg-white/[0.06] transition-colors group block space-y-3"
             >
-              <Mail className="w-3.5 h-3.5" />
-              <span>Send Email</span>
+              <div className="flex items-center justify-between text-xs font-mono text-[#7696E8]">
+                <span>Email</span>
+                <ArrowUpRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
+              </div>
+              <div className="text-sm font-serif text-white truncate">
+                {profile.email}
+              </div>
+              <div className="text-[11px] font-mono text-[#F3F1EB]/50">
+                Direct Inquiries
+              </div>
             </a>
-          </div>
 
-          <div className="pt-4 border-t border-hairline flex flex-wrap items-center gap-6 text-xs">
+            {/* LinkedIn */}
             <a
               href={profile.linkedin}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-1.5 text-[#15181D] hover:text-[#3157D5] transition-colors"
+              className="p-6 border border-white/15 bg-white/[0.02] hover:bg-white/[0.06] transition-colors group block space-y-3"
             >
-              <Linkedin className="w-4 h-4 text-[#697078]" />
-              <span>LinkedIn Profile</span>
-              <ExternalLink className="w-3 h-3 text-[#697078]" />
+              <div className="flex items-center justify-between text-xs font-mono text-[#7696E8]">
+                <span>LinkedIn</span>
+                <ArrowUpRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
+              </div>
+              <div className="text-sm font-serif text-white">
+                Razin Abdillah
+              </div>
+              <div className="text-[11px] font-mono text-[#F3F1EB]/50">
+                Professional Network
+              </div>
             </a>
 
+            {/* GitHub */}
             {profile.github && (
               <a
                 href={profile.github}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center gap-1.5 text-[#15181D] hover:text-[#3157D5] transition-colors"
+                className="p-6 border border-white/15 bg-white/[0.02] hover:bg-white/[0.06] transition-colors group block space-y-3"
               >
-                <Github className="w-4 h-4 text-[#697078]" />
-                <span>GitHub</span>
-                <ExternalLink className="w-3 h-3 text-[#697078]" />
+                <div className="flex items-center justify-between text-xs font-mono text-[#7696E8]">
+                  <span>GitHub</span>
+                  <ArrowUpRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
+                </div>
+                <div className="text-sm font-serif text-white">
+                  @razinabdillah
+                </div>
+                <div className="text-[11px] font-mono text-[#F3F1EB]/50">
+                  Code Repositories
+                </div>
               </a>
             )}
 
-            <Link
-              to="/cv"
-              className="inline-flex items-center gap-1.5 text-[#3157D5] hover:underline"
-            >
-              <FileText className="w-3.5 h-3.5" />
-              <span>Curriculum Vitae (CV)</span>
-            </Link>
+            {/* Instagram */}
+            {profile.instagram && (
+              <a
+                href={profile.instagram}
+                target="_blank"
+                rel="noreferrer"
+                className="p-6 border border-white/15 bg-white/[0.02] hover:bg-white/[0.06] transition-colors group block space-y-3"
+              >
+                <div className="flex items-center justify-between text-xs font-mono text-[#7696E8]">
+                  <span>Instagram</span>
+                  <ArrowUpRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
+                </div>
+                <div className="text-sm font-serif text-white">
+                  @razin.abdillah
+                </div>
+                <div className="text-[11px] font-mono text-[#F3F1EB]/50">
+                  Social & Activity
+                </div>
+              </a>
+            )}
+
           </div>
+
+          <div className="pt-6 border-t border-white/10 flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-xs font-mono text-[#F3F1EB]/50">
+            <Link to="/cv" className="hover:text-white transition-colors inline-flex items-center gap-1.5">
+              <FileText className="w-3.5 h-3.5 text-[#7696E8]" />
+              <span>Download / View Curriculum Vitae</span>
+            </Link>
+            <span>Surabaya, Indonesia · © 2026</span>
+          </div>
+
         </div>
       </section>
 

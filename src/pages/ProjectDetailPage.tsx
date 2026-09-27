@@ -277,26 +277,31 @@ export const ProjectDetailPage: React.FC = () => {
         {/* Cross-Linking Section */}
         {(relatedExps.length > 0 || relatedJourneys.length > 0) && (
           <section className="pt-10 border-t border-hairline space-y-4">
-            <div className="text-xs font-mono uppercase text-[#3157D5]">
+            <div className="text-xs font-mono uppercase text-[#3157D5] font-semibold">
               Connected Context
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="divide-y divide-hairline border-y border-hairline">
               {relatedExps.map((e) => (
                 <Link
                   key={e.slug}
                   to={`/experience/${e.slug}`}
-                  className="p-4 rounded-xl border border-hairline bg-[#EBE8DF]/40 hover:bg-white transition-all group"
+                  className="py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 group block hover:bg-[#EAE6DD]/30 px-2 transition-colors"
                 >
-                  <div className="text-xs font-mono text-[#3157D5] mb-1">
-                    Work Experience
+                  <div className="space-y-1">
+                    <div className="text-xs font-mono text-[#3157D5]">
+                      Work Experience · {e.organization}
+                    </div>
+                    <h4 className="text-base font-serif text-[#15181D] group-hover:text-[#3157D5] transition-colors">
+                      {e.role}
+                    </h4>
+                    <p className="text-xs text-[#697078] max-w-xl line-clamp-1">
+                      {e.summary}
+                    </p>
                   </div>
-                  <h4 className="text-base font-serif text-[#15181D] group-hover:text-[#3157D5] transition-colors flex items-center justify-between">
-                    <span>{e.organization}</span>
-                    <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-                  </h4>
-                  <p className="mt-1 text-xs text-[#697078] line-clamp-2">
-                    {e.summary}
-                  </p>
+                  <div className="flex items-center gap-1 text-xs font-mono text-[#15181D] group-hover:text-[#3157D5] shrink-0">
+                    <span>Inspect Dossier</span>
+                    <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                  </div>
                 </Link>
               ))}
 
@@ -304,18 +309,23 @@ export const ProjectDetailPage: React.FC = () => {
                 <Link
                   key={j.slug}
                   to={`/journey/${j.slug}`}
-                  className="p-4 rounded-xl border border-hairline bg-[#EBE8DF]/40 hover:bg-white transition-all group"
+                  className="py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 group block hover:bg-[#EAE6DD]/30 px-2 transition-colors"
                 >
-                  <div className="text-xs font-mono text-[#C98259] mb-1">
-                    Journey Experience
+                  <div className="space-y-1">
+                    <div className="text-xs font-mono text-[#C98259]">
+                      Journey Record · {j.organization || j.title}
+                    </div>
+                    <h4 className="text-base font-serif text-[#15181D] group-hover:text-[#3157D5] transition-colors">
+                      {j.title}
+                    </h4>
+                    <p className="text-xs text-[#697078] max-w-xl line-clamp-1">
+                      {j.summary}
+                    </p>
                   </div>
-                  <h4 className="text-base font-serif text-[#15181D] group-hover:text-[#3157D5] transition-colors flex items-center justify-between">
-                    <span>{j.title}</span>
-                    <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-                  </h4>
-                  <p className="mt-1 text-xs text-[#697078] line-clamp-2">
-                    {j.summary}
-                  </p>
+                  <div className="flex items-center gap-1 text-xs font-mono text-[#15181D] group-hover:text-[#3157D5] shrink-0">
+                    <span>Read Record</span>
+                    <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                  </div>
                 </Link>
               ))}
             </div>

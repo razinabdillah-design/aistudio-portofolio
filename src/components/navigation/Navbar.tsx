@@ -13,15 +13,15 @@ export const Navbar: React.FC = () => {
   }, [location.pathname]);
 
   const navLinks = [
-    { label: 'Journey', href: '/journey' },
-    { label: 'Work Experience', href: '/experience' },
+    { label: 'Roles', href: '/roles' },
+    { label: 'Experiences', href: '/experiences' },
     { label: 'Projects', href: '/projects' },
     { label: 'About', href: '/about' },
   ];
 
   const isActive = (path: string) => {
     if (path === '/' && location.pathname === '/') return true;
-    if (path !== '/' && location.pathname.startsWith(path)) return true;
+    if (path !== '/' && (location.pathname.startsWith(path) || (path === '/roles' && location.pathname.startsWith('/experience')) || (path === '/experiences' && location.pathname.startsWith('/journey')))) return true;
     return false;
   };
 
@@ -57,8 +57,16 @@ export const Navbar: React.FC = () => {
           })}
         </nav>
 
-        {/* Zone 3: Primary Action (Desktop) */}
-        <div className="hidden md:flex items-center gap-4">
+        {/* Zone 3: Primary Action & Resume (Desktop) */}
+        <div className="hidden md:flex items-center gap-5">
+          <Link
+            to="/cv"
+            className="inline-flex items-center gap-1 text-xs font-mono uppercase tracking-wider text-[#15181D] hover:text-[#3157D5] transition-colors"
+          >
+            <span>Resume</span>
+            <ArrowUpRight className="w-3.5 h-3.5" />
+          </Link>
+
           <a
             href={`mailto:${profile.email}`}
             className="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-medium text-white bg-[#15181D] rounded-md hover:bg-[#3157D5] transition-colors shadow-xs whitespace-nowrap"
@@ -82,14 +90,22 @@ export const Navbar: React.FC = () => {
       {/* Mobile Menu Drawer */}
       {mobileMenuOpen && (
         <div className="md:hidden border-b border-hairline bg-[#F3F1EB] px-4 pt-2 pb-6 space-y-4 animate-in fade-in duration-200">
-          <nav className="flex flex-col space-y-3">
+          <nav className="flex flex-col space-y-1">
+            <Link
+              to="/"
+              className={`text-base font-medium py-2.5 min-h-[44px] flex items-center border-b border-hairline/40 transition-colors ${
+                location.pathname === '/' ? 'text-[#3157D5] font-semibold' : 'text-[#697078]'
+              }`}
+            >
+              Home
+            </Link>
             {navLinks.map((link) => {
               const active = isActive(link.href);
               return (
                 <Link
                   key={link.href}
                   to={link.href}
-                  className={`text-base font-medium py-1.5 border-b border-hairline/40 transition-colors ${
+                  className={`text-base font-medium py-2.5 min-h-[44px] flex items-center border-b border-hairline/40 transition-colors ${
                     active ? 'text-[#3157D5] font-semibold' : 'text-[#697078]'
                   }`}
                 >
@@ -99,9 +115,10 @@ export const Navbar: React.FC = () => {
             })}
             <Link
               to="/cv"
-              className="text-base font-medium py-1.5 border-b border-hairline/40 text-[#697078] hover:text-[#3157D5] transition-colors"
+              className="text-base font-medium py-2.5 min-h-[44px] flex items-center justify-between border-b border-hairline/40 text-[#15181D]"
             >
-              Curriculum Vitae (CV)
+              <span>Resume</span>
+              <ArrowUpRight className="w-4 h-4 text-[#3157D5]" />
             </Link>
           </nav>
           <div className="pt-2">

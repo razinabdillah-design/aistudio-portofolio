@@ -17,6 +17,7 @@ export const profile: ProfileData = {
   email: 'razinabdillah1@gmail.com',
   linkedin: 'https://linkedin.com/in/razin-abdillah',
   github: 'https://github.com/razinabdillah',
+  instagram: 'https://www.instagram.com/razin.abdillah/',
   statusExploring: [
     'Electrical Engineering',
     'Energy Systems',

@@ -1,47 +1,27 @@
 import React from 'react';
-import { HeroSection } from '../sections/home/HeroSection';
-import { AtAGlanceSection } from '../sections/home/AtAGlanceSection';
-import { ResearchProjectsSection } from '../sections/home/ResearchProjectsSection';
-import { ProfessionalExperienceSection } from '../sections/home/ProfessionalExperienceSection';
-import { InternationalExperienceSection } from '../sections/home/InternationalExperienceSection';
-import { OrganizationsSection } from '../sections/home/OrganizationsSection';
-import { CommitteeVolunteerSection } from '../sections/home/CommitteeVolunteerSection';
-import { SystemsOperationsSection } from '../sections/home/SystemsOperationsSection';
-import { CurrentlyExploringSection } from '../sections/home/CurrentlyExploringSection';
-import { FinalGatewaySection } from '../sections/home/FinalGatewaySection';
+import { HeroMediaSection } from '../sections/home/HeroMediaSection';
+import { ActivityReelSection } from '../sections/home/ActivityReelSection';
+import { MeetRazinSection } from '../sections/home/MeetRazinSection';
+import { SelectedRecordsSection } from '../sections/home/SelectedRecordsSection';
+import { WorkedAcrossSection } from '../sections/home/WorkedAcrossSection';
 
 export const HomePage: React.FC = () => {
   return (
     <div className="w-full">
-      {/* SECTION 01: HERO */}
-      <HeroSection />
+      {/* 01. HERO (Preserved user layout: RAZIN top-right, ABDILLAH bottom-right, full slide background layer) */}
+      <HeroMediaSection />
 
-      {/* SECTION 02: RAZIN AT A GLANCE */}
-      <AtAGlanceSection />
+      {/* 02. ACTIVITY REEL (Scalable rail supporting all verified activities with touch swipe on mobile) */}
+      <ActivityReelSection />
 
-      {/* SECTION 03: RESEARCH & PROJECTS */}
-      <ResearchProjectsSection />
+      {/* 03. PERSONAL INTRODUCTION (Image-first: large photo before text, grounded human hook) */}
+      <MeetRazinSection />
 
-      {/* SECTION 04: PROFESSIONAL EXPERIENCE */}
-      <ProfessionalExperienceSection />
+      {/* 04. SELECTED RECORDS (Two core stories: Aither & IFL + quiet inline directory for Roles, Experiences, Projects, About) */}
+      <SelectedRecordsSection />
 
-      {/* SECTION 05: INTERNATIONAL EXPERIENCE */}
-      <InternationalExperienceSection />
-
-      {/* SECTION 06: ORGANIZATIONS & COMMUNITIES */}
-      <OrganizationsSection />
-
-      {/* SECTION 07: COMMITTEE & VOLUNTEER */}
-      <CommitteeVolunteerSection />
-
-      {/* SECTION 08: SYSTEMS & OPERATIONS PATTERN */}
-      <SystemsOperationsSection />
-
-      {/* SECTION 09: CURRENTLY EXPLORING */}
-      <CurrentlyExploringSection />
-
-      {/* SECTION 10: FINAL GATEWAY */}
-      <FinalGatewaySection />
+      {/* 05. WHAT I'VE WORKED ACROSS (Clean, compact indexed exposure rows) */}
+      <WorkedAcrossSection />
     </div>
   );
 };

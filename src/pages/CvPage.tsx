@@ -36,7 +36,7 @@ export const CvPage: React.FC = () => {
       </div>
 
       {/* Formal Restrained CV Document Container */}
-      <div className="bg-white p-8 sm:p-12 rounded-xl border border-hairline shadow-xs print:border-0 print:shadow-none print:p-0 text-[#15181D] space-y-8 font-sans">
+      <div className="bg-white p-8 sm:p-12 border border-hairline print:border-0 print:shadow-none print:p-0 text-[#15181D] space-y-8 font-sans">
         
         {/* CV Header */}
         <header className="border-b border-[#15181D]/15 pb-6 space-y-2">
